@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>Character Sheet</title>
+    <!--Stylesheet-->
+    <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <!--Jquery-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!--chart-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js" integrity="sha256-Y26AMvaIfrZ1EQU49pf6H4QzVTrOI8m9wQYKkftBt4s=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.js" integrity="sha256-RIecqpGslbgq3kTN1WEkdfvCEOQusfVsvX0UmRw9Ck0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js" integrity="sha256-Y26AMvaIfrZ1EQU49pf6H4QzVTrOI8m9wQYKkftBt4s=" crossorigin="anonymous"></script>
+    <!--Select2-->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  </head>
+
+  <body>
+    <div class="header">
+
+    </div>
+
+    <div class="main">
+      <div class="row">
+        <div class="column" style="flex: 0;">
+          <form class="container" method="post" id="picture">
+              <input type='file' accept="image/jpeg, image/x-png" id="imgInp"/>
+              <span>Upload Image</span>
+              <img id="thumb" src="#" alt="your image" />
+          </form>
+          <div class="row" id="palette">
+            <div><input type="color" id="color" name="p1" value="#ffffff" /></div>
+            <div><input type="color" id="color" name="p2" value="#ffffff" /></div>
+            <div><input type="color" id="color" name="p3" value="#ffffff" /></div>
+            <div><input type="color" id="color" name="p4" value="#ffffff" /></div>
+            <div><input type="color" id="color" name="p5" value="#ffffff" /></div>
+          </div>
+        </div>
+        <div class="container" id="bio">
+          <div class="cell"><label for="name">NAME: </label><span><input type="text" name="name" maxlength="100"/></span></div>
+          <div class="cell"><label for="nickname">NICKNAME(S): </label><span><input type="text" name="nickname" maxlength="100"></span></div>
+          <div class="cell"><label for="race">RACE/SPECIES: </label><span><input type="text" name="race" maxlength="50"></span></div>
+          <div class="cell">
+            <label for="age">AGE: </label> <input type="number" id="age" min="1">
+            <select name="age-range">
+              <option>MONTH(S)</option>
+              <option selected>YEAR(S)</option>
+              <option>MILLENIA</option>
+              <option>N/A</option>
+            </select>
+          </div>
+          <div class="cell">
+              <label for="gender">GENDER: </label> <span><input type="text" name="gender" maxlength="30"/></span>
+            </div>
+          <div class="cell">
+            <label for="orient">ORIENTATION: </label> <span><input type="text" name="orient" maxlength="30"/></span>
+          </div>
+
+          <div class="cell">
+            <label for="align">ALIGNMENT: </label>
+            <select name="align">
+              <optgroup label="GOOD">
+                <option>LAWFUL GOOD</option>
+                <option>NEUTRAL GOOD</option>
+                <option>CHAOTIC GOOD</option>
+              </optgroup>
+              <optgroup label="NEUTRAL">
+                <option>LAWFUL NEUTRAL</option>
+                <option>TRUE NEUTRAL</option>
+                <option>CHAOTIC NEUTRAL</option>
+              </optgroup>
+              <optgroup label="EVIL">
+                <option>LAWFUL EVIL</option>
+                <option>NEUTRAL EVIL</option>
+                <option>CHAOTIC EVIL</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="cell">
+            <label for="class">CLASS/OCCUPATION: </label><span> <input type="text" name="class" maxlength="50"/></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column">
+          <div class="container" name="STATS"style="align-items: center">
+            <div class="cell" style="padding: 10px"><canvas id="myChart" ></canvas></div>
+            <div class="row" id="stats">
+              <div class="cell">
+                <div class="container stat">
+                  <img src="img/stats-str.png" class="statIcon">
+                  <input type="number" id="str" value="8" min="3" max="20" class="statNum">
+                </div>
+                <label for="str">Strength</label>
+              </div>
+
+              <div class="cell">
+                <div class="container stat">
+                  <img src="img/stats-dex.png" class="statIcon">
+                  <input type="number" id="dex" value="8" min="3" max="20" class="statNum">
+                </div>
+                <label for="dex">Dexterity</label>
+              </div>
+
+              <div class="cell">
+                <div class="container stat">
+                  <img src="img/stats-sta.png" class="statIcon">
+                  <input type="number" id="sta" value="8" min="3" max="20" class="statNum">
+                </div>
+                <label for="sta">Stamina</label>
+              </div>
+
+              <div class="cell">
+                <div class="container stat">
+                  <img src="img/stats-int.png" class="statIcon">
+                  <input type="number" id="int" value="8" min="3" max="20" class="statNum">
+                </div>
+                <label for="int">Intelligence</label>
+              </div>
+
+              <div class="cell">
+                <div class="container stat">
+                  <img src="img/stats-wis.png" class="statIcon">
+                  <input type="number" id="wis" value="8" min="3" max="20" class="statNum">
+                </div>
+                <label for="wis">Wisdom</label>
+              </div>
+
+              <div class="cell">
+                <div class="container stat" >
+                  <img src="img/stats-cha.png" class="statIcon">
+                  <input type="number" id="cha" value="8" min="3" max="20" class="statNum">
+                </div>
+                <label for="cha">Charisma</label>
+              </div>
+            </div>
+            <div class="cell" style="padding-top: 10px; font-size: 14px;">Available Points: <span id="points">27</span></div>
+            <span id="alert">You have exceeded maximum threshold!</span>
+          </div>
+          <div class="row" style="align-items: center; vertical-align: middle;">
+            <input type="number" id="prof" value="2" min="2">
+            <h3>Proficiency Bonus</h3>
+          </div>
+        </div>
+        <div class="column">
+          <div class="container" id="skills">
+              <h3>Skills</h3>
+
+              <h4>STR</h4>
+              <div class="cell">
+                <input type="checkbox" class="myCheck">
+                <span class="skill"><div class="modStr">-1</div> Athletics</span>
+              </div>
+
+              <hr>
+
+              <h4>DEX</h4>
+              <div class="cell">
+                <input type="checkbox" class="myCheck">
+                <span class="skill"><div class="modDex">-1</div> Acrobatics</span>
+              </div>
+              <div class="cell">
+                <input type="checkbox" class="myCheck">
+                <span class="skill"><div class="modDex">-1</div> Sleight of Hand</span>
+              </div>
+              <div class="cell">
+                <input type="checkbox" class="myCheck">
+                <span class="skill"><div class="modDex">-1</div> Stealth</span>
+              </div>
+
+              <hr>
+
+              <h4>INT</h4>
+              <div class="cell">
+                <input type="checkbox" class="myCheck">
+                <span class="skill"><div class="modInt">-1</div> Arcana</span>
+              </div>
+              <div class="cell">
+                <input type="checkbox" class="myCheck">
+                <span class="skill"><div class="modInt">-1</div> History</span>
+              </div>
+              <div class="cell">
+                <input type="checkbox" class="myCheck">
+                <span class="skill"><div class="modInt">-1</div> Investigation</span>
+              </div>
+              <div class="cell">
+                <input type="checkbox" class="myCheck">
+                <span class="skill"><div class="modInt">-1</div> Nature</span>
+              </div>
+              <div class="cell">
+                <input type="checkbox" class="myCheck">
+                <span class="skill"><div class="modInt">-1</div> Religion</span>
+              </div>
+
+              <hr>
+
+              <h4>WIS</h4>
+              <div class="cell">
+                <input type="checkbox" class="myCheck">
+                <span class="skill"><div class="modWis">-1</div> Animal Handling</span>
+              </div>
+              <div class="cell">
+                <input type="checkbox" class="myCheck">
+                <span class="skill"><div class="modWis">-1</div> Insight</span>
+              </div>
+              <div class="cell">
+                <input type="checkbox" class="myCheck">
+                <span class="skill"><div class="modWis">-1</div> Medicine</span>
+              </div>
+              <div class="cell">
+                <input type="checkbox" class="myCheck">
+                <span class="skill"><div class="modWis">-1</div> Perception</span>
+              </div>
+              <div class="cell">
+                <input type="checkbox" class="myCheck">
+                <span class="skill"><div class="modWis">-1</div> Survival</span>
+              </div>
+
+              <hr>
+
+              <h4>CHA</h4>
+              <div class="cell">
+                <input type="checkbox" class="myCheck">
+                <span class="skill"><div class="modCha">-1</div> Deception</span>
+              </div>
+              <div class="cell">
+                <input type="checkbox" class="myCheck">
+                <span class="skill"><div class="modCha">-1</div> Intimidation</span>
+              </div>
+              <div class="cell">
+                <input type="checkbox" class="myCheck">
+                <span class="skill"><div class="modCha">-1</div> Performance</span>
+              </div>
+              <div class="cell">
+                <input type="checkbox" class="myCheck">
+                <span class="skill"><div class="modCha">-1</div> Persuasion</span>
+              </div>
+            </div>
+        </div>
+        <div class="column">
+          <div class="container" id="description">
+            <h3>Character Description/History</h3>
+            <div class="cell">
+              <textarea id="hist" rows="6"></textarea>
+            </div>
+          </div>
+          <div class="container" id="personality">
+            <h3>Personality</h3>
+            <div class="column" style="align-content: center">
+              <table>
+                <tr><th colspan="3">OPENNESS</th></tr>
+                <tr>
+                  <td>Conventional,<br>Cautious</td>
+                  <td> <input type="range" min="0" max="10"> </td>
+                  <td>Inventive,<br>Curious</td>
+                </tr>
+
+                <tr><th colspan="3">CONSCIENTIOUSNESS</th></tr>
+                <tr>
+                  <td>Efficient,<br>Organized</td>
+                  <td> <input type="range" min="0" max="10"> </td>
+                  <td>Impulsive,<br>Careless</td>
+                </tr>
+
+                <tr><th colspan="3">EXTRAVERSION</th></tr>
+                <tr>
+                  <td>Introverted</td>
+                  <td> <input type="range" min="0" max="10"> </td>
+                  <td>Extroverted</td>
+                </tr>
+
+                <tr>
+                  <th></th>
+                  <th>AGREEABLENESS</th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <td>Critical,<br>Detached</td>
+                  <td> <input type="range" min="0" max="10"> </td>
+                  <td>Friendly,<br>Compassionate</td>
+                </tr>
+
+                <tr>
+                  <th></th>
+                  <th>NEUROTICISM</th>
+                  <th></th>
+                </tr>
+                <tr>
+                  <td>Secure,<br>Confident</td>
+                  <td> <input type="range" min="0" max="10"> </td>
+                  <td>Sensitive,<br>Anxious</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="page-break-before: always">
+        <div class="column">
+          <div class="container" name="ADDSKILLS">
+            <h3>Additional Skills/Proficiencies</h3>
+            <div class="container" id="lang">
+              <span><label for="language">Language</label><textarea name="language" rows="3"></textarea></span>
+            </div>
+            <div class="container" id="sp_skill">
+              <span><label for="add">Special Skills</label><textarea name="add" rows="3"></textarea></span>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="container" name="FLAWS">
+            <h3>Flaws</h3>
+
+            <h4>Mind</h4>
+            <select class="flaws" multiple="multiple" data-placeholder="Select">
+              <optgroup label="Thinking">
+                <option title="I obsess over something to my own detriment.">Obsessive</option>
+                <option title="I forgo simple answers for complicated solutions.">Overthinker</option>
+                <option title="I expect perfection from others and myself.">Perfectionist</option>
+                <option title="I feel like the world is out to get me.">Paranoid</option>
+                <option title="I don't like to change my mind or methods.">Stubborn</option>
+              </optgroup>
+              <optgroup label="Self Image">
+                <option title="I believe I'm better than everyone else.">Arrogant</option>
+                <option title="I am the embodiment of perfection! Worship me!">Narcissistic</option>
+                <option title="I value my status and fame very highly.">Vain</option>
+              </optgroup>
+              <optgroup label="Worldview">
+
+                <option title="I view morals, goals and relationships as meaningless.">Nihilistic</option>
+                <option title="I tend to see the worst in something/someone.">Pessimistic</option>
+
+              </optgroup>
+            </select>
+
+            <h4>Ethics</h4>
+            <select class="flaws" multiple="multiple" data-placeholder="Select">
+              <option title="I will save myself first, even at the expense of others.">Cowardly</option>
+              <option title="I think no cost is too great if it gets results.">Immoral</option>
+              <option title="I'll let someone take the blame for my actions.">Irresponsible</option>
+              <option title="I'll say anything to avoid work.">Lazy</option>
+              <option title="I trick people into doing what I want.">Manipulative</option>
+              <option title="I believe violence solves everything.">Violent</option>
+            </select>
+
+            <h4>Quirks</h4>
+            <select class="flaws" multiple="multiple" data-placeholder="Select">
+              <option title="I have a terrible poker face.">Bad Liar</option>
+              <option title="I am terrible at keeping secrets.">Blabbermouth</option>
+              <option title="I tend to drop things.">Clumsy</option>
+              <option title="I forget things easily.">Forgetful</option>
+              <option title="I get frightened very easily.">Scaredy Cat</option>
+            </select>
+
+            <h4>Social</h4>
+            <select class="flaws" multiple="multiple" data-placeholder="Select">
+              <optgroup label="Organizational">
+                <option title="I will follow authorities without question.">Gullible</option>
+                <option title="I always challenge social norms/status quo.">Rebellious</option>
+                <option title="I don't like being ordered around.">Unruly</option>
+              </optgroup>
+              <optgroup label="Intrapersonal">
+                <option title="I have a hard time trusting people.">Distrustful</option>
+                <option title="I trust people very easily, even if I just met them.">Naive</option>
+                <option title="I have biased preconceptions of others.">Prejudicial</option>
+                <option title="I fall for pretty faces very easily.">Simp</option>
+                <option title="I say things that anger people often.">Uncouth</option>
+              </optgroup>
+            </select>
+
+          </div>
+          <div class="container" name="BONDS">
+            <h3>Bonds</h3>
+            <div class="cell">
+              <input type="text" class="bondNames">
+              <select class="bonds" data-placeholder="Select"><option></option></select>
+            </div>
+            <div class="cell">
+              <input type="text" class="bondNames">
+              <select class="bonds" data-placeholder="Select"><option></option></select>
+            </div>
+            <div class="cell">
+              <input type="text" class="bondNames">
+              <select class="bonds" data-placeholder="Select"><option></option></select>
+            </div>
+            <div class="cell">
+              <input type="text" class="bondNames">
+              <select class="bonds" data-placeholder="Select"><option></option></select>
+            </div>
+            <div class="cell">
+              <input type="text" class="bondNames">
+              <select class="bonds" data-placeholder="Select"><option></option></select>
+            </div>
+            <div class="cell">
+              <input type="text" class="bondNames">
+              <select class="bonds" data-placeholder="Select"><option></option></select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/function.js" charset="utf-8"></script>
+
+    <div class="footer">
+
+    </div>
+  </body>
+</html>
