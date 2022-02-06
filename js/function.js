@@ -1,75 +1,126 @@
-$("#imgInp").change(function readURL(img) {
-  if (img.files && img.files[0]) {
-    var reader = new FileReader();
-    reader.onload = function (e) { $('#thumb').attr('src', e.target.result); }
-    reader.readAsDataURL(img.files[0]);
-  }
-  readURL(this);
-});
-
 //STAT DISTRIBUTION
+
 //>>STR
 $("#str").change(function() {
-  console.log("STR="+this.value);
+  //LIMIT
+  var val = parseInt(this.value)
+  if (val > 20 || val < 3) {
+    alert("Limit exceeded.");
+    val = 8 ;
+    $("#str").val(val);
+  }
+  console.log("STR="+val);
+
   //update chart
-  myChart.config.data.datasets[0].data[0] = this.value;
+  myChart.config.data.datasets[0].data[0] = val;
   myChart.update();
-  //calculate
-  var mod = parseFloat(Math.floor(((this.value-10)/2)*100)/100).toFixed(0)
+
+  //calculate modifier
+  var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0)
   if (mod > 0){ $('.modStr').html("+"+mod); }
   else { $('.modStr').html(mod); }
-
 });
+
 //>>DEX
 $("#dex").change(function() {
-  console.log("DEX="+this.value);
-  //chart
-  myChart.config.data.datasets[0].data[1] = this.value;
+  var val = parseInt(this.value)
+  if (val > 20 || val < 3) {
+    alert("Limit exceeded.");
+    val = 8 ;
+    $("#dex").val(val);
+  }
+  console.log("DEX="+val);
+
+  //update chart
+  myChart.config.data.datasets[0].data[1] = val;
   myChart.update();
-  //calculate
-  var mod = parseFloat(Math.floor(((this.value-10)/2)*100)/100).toFixed(0)
+
+  //calculate modifier
+  var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0)
   if (mod > 0){ $('.modDex').html("+"+mod); }
   else { $('.modDex').html(mod); }
 });
+
 //>>STA
 $("#sta").change(function() {
-  console.log("STA="+this.value);
-  myChart.config.data.datasets[0].data[2] = this.value;
+  var val = parseInt(this.value)
+  if (val > 20 || val < 3) {
+    alert("Limit exceeded.");
+    val = 8 ;
+    $("#sta").val(val);
+  }
+  console.log("STA="+val);
+
+  //update chart
+  myChart.config.data.datasets[0].data[0] = val;
   myChart.update();
+
+  //calculate modifier
+  var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0)
+  if (mod > 0){ $('.modSta').html("+"+mod); }
+  else { $('.modSta').html(mod); }
 });
+
 //>>INT
 $("#int").change(function() {
-  console.log("INT="+this.value);
-  //chart
-  myChart.config.data.datasets[0].data[3] = this.value;
+  var val = parseInt(this.value)
+  if (val > 20 || val < 3) {
+    alert("Limit exceeded.");
+    val = 8 ;
+    $("#int").val(val);
+  }
+  console.log("INT="+val);
+
+  //update chart
+  myChart.config.data.datasets[0].data[0] = val;
   myChart.update();
-  //calculate
-  var mod = parseFloat(Math.floor(((this.value-10)/2)*100)/100).toFixed(0)
+
+  //calculate modifier
+  var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0)
   if (mod > 0){ $('.modInt').html("+"+mod); }
   else { $('.modInt').html(mod); }
 });
+
 //>>WIS
 $("#wis").change(function () {
-  console.log("WIS="+this.value);
-  //chart
-  myChart.config.data.datasets[0].data[4] = this.value;
+  var val = parseInt(this.value)
+  if (val > 20 || val < 3) {
+    alert("Limit exceeded.");
+    val = 8 ;
+    $("#wis").val(val);
+  }
+  console.log("WIS="+val);
+
+  //update chart
+  myChart.config.data.datasets[0].data[0] = val;
   myChart.update();
-  //calculate
-  var mod = parseFloat(Math.floor(((this.value-10)/2)*100)/100).toFixed(0)
+
+  //calculate modifier
+  var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0)
   if (mod > 0){ $('.modWis').html("+"+mod); }
   else { $('.modWis').html(mod); }
 });
+
 //>>CHA
 $("#cha").change(function () {
-  console.log("CHA="+this.value);
-  //chart
-  myChart.config.data.datasets[0].data[5] = this.value;
+  var val = parseInt(this.value)
+  if (val > 20 || val < 3) {
+    alert("Limit exceeded.");
+    val = 8 ;
+    $("#cha").val(val);
+  }
+  console.log("CHA="+val);
+
+  //update chart
+  myChart.config.data.datasets[0].data[0] = val;
   myChart.update();
-  //calculate
-  var mod = parseFloat(Math.floor(((this.value-10)/2)*100)/100).toFixed(0)
+
+  //calculate modifier
+  var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0)
   if (mod > 0){ $('.modCha').html("+"+mod); }
   else { $('.modCha').html(mod); }
 });
+
 
 //format options for Flaws
 function formatOption(option){
@@ -101,20 +152,19 @@ $(document).ready(function() {
     });
   });
 
-  //base flaw selection settings
+  //Select2 setting
+  $('select').select2({
+    dropdownAutoWidth: true });
+
   $('.flaws').select2({
     dropdownAutoWidth: true,
-    width: '100%',
-    height: '20px',
+    height: 'auto',
     multiple: true,
     maximumSelectionLength: 4,
     allowClear: true,
     templateResult: formatOption,
   });
-  $('.bonds').select2({
-    dropdownAutoWidth: true,
-  });
-
+  //repeat bond options for bond selects
   $.each(bonds, function(i, bondOpt){
     $('.bonds').append($('<option>', {
       text: bondOpt.text
@@ -145,29 +195,34 @@ var myChart = new Chart(ctx, {
         labels: ["STR", "DEX", "STA", "INT", "WIS", "CHA"],
         datasets: [{
             data: [str.value, dex.value, sta.value, int.value, wis.value, cha.value],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+            backgroundColor: 'rgba(0, 0, 0, 0.1)',
+            pointBackgroundColor: [
+                '#ED1C24',
+                '#0071BC',
+                '#8CC63F',
+                '#F7931E',
+                '#93278F',
+                '#ED1E79'
             ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+            pointHoverBackgroundColor : '#fff',
+            pointHoverBorderColor: [
+              '#ED1C24',
+              '#0071BC',
+              '#8CC63F',
+              '#F7931E',
+              '#93278F',
+              '#ED1E79'
             ],
             borderWidth: 1
-        }]
+        }],
     },
     options: {
       maintainAspectRatio: true,
       plugins: {
         legend: {display: false}
+      },
+      line: {
+        borderWidth: 3
       },
       scales: {
         r: {
@@ -181,3 +236,58 @@ var myChart = new Chart(ctx, {
       }
     }
 });
+
+//Image Thumb
+var dropArea = $(".drag-image"),
+    dragText = $("#dragText"),
+    browseBtn = $("#browseBtn"),
+    thumbnail = $("#thumb");
+
+let file;
+
+browseBtn.click(function(){ thumbnail.click(); }); //replace input button w styled button
+
+thumbnail.change(function() {
+  file = this.files[0];
+  viewfile();
+});
+
+dropArea.on("dragenter", function(){
+  console.log("Item in area.")
+});
+
+dropArea.bind("dragover", function(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  dragText.text("Release to Upload File");
+});
+
+dropArea.bind("dragleave", function() {
+  dragText.text("Drag & Drop to Upload File");
+});
+
+dropArea.bind("drop", function(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  file = event.target.files[0];
+  viewfile();
+});
+
+function viewfile(){
+  if (window.FileReader) {
+    var fileReader = new FileReader();
+
+    if(file && file.type.match('image.*')){
+      fileReader.readAsDataURL(file);
+      fileReader.onload = function(){
+        let fileURL = fileReader.result;
+        let imgTag = `<img src="${fileURL}" alt="image">`;
+        dropArea.html(imgTag);
+      };
+
+    }else{
+      alert("This is not an Image File!");
+      dragText.text("Drag & Drop to Upload File");
+    }
+  }
+}

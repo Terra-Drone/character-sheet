@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+"<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
@@ -24,12 +24,15 @@
 
     <div class="main">
       <div class="row">
-        <div class="column" style="flex: 0;">
-          <form class="container" method="post" id="picture">
-              <input type='file' accept="image/jpeg, image/x-png" id="imgInp"/>
-              <span>Upload Image</span>
-              <img id="thumb" src="#" alt="your image" />
+        <div class="column" style="flex: 0">
+          <form class="drag-image" method="post">
+            <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <h6 id="dragText">Drag & Drop File Here</h6>
+            <span>OR</span>
+            <button id="browseBtn">Browse File</button>
+            <input type="file" id="thumb" hidden>
           </form>
+
           <div class="row" id="palette">
             <div><input type="color" id="color" name="p1" value="#ffffff" /></div>
             <div><input type="color" id="color" name="p2" value="#ffffff" /></div>
@@ -60,7 +63,7 @@
 
           <div class="cell">
             <label for="align">ALIGNMENT: </label>
-            <select name="align">
+            <select id="align">
               <optgroup label="GOOD">
                 <option>LAWFUL GOOD</option>
                 <option>NEUTRAL GOOD</option>
@@ -88,48 +91,43 @@
         <div class="column">
           <div class="container" name="STATS"style="align-items: center">
             <div class="cell" style="padding: 10px"><canvas id="myChart" ></canvas></div>
-            <div class="row" id="stats">
-              <div class="cell">
+            <div class="row">
+              <div class="cell stats">
                 <div class="container stat">
                   <img src="img/stats-str.png" class="statIcon">
                   <input type="number" id="str" value="8" min="3" max="20" class="statNum">
                 </div>
                 <label for="str">Strength</label>
               </div>
-
-              <div class="cell">
+              <div class="cell stats">
                 <div class="container stat">
                   <img src="img/stats-dex.png" class="statIcon">
                   <input type="number" id="dex" value="8" min="3" max="20" class="statNum">
                 </div>
                 <label for="dex">Dexterity</label>
               </div>
-
-              <div class="cell">
+              <div class="cell stats">
                 <div class="container stat">
                   <img src="img/stats-sta.png" class="statIcon">
                   <input type="number" id="sta" value="8" min="3" max="20" class="statNum">
                 </div>
                 <label for="sta">Stamina</label>
               </div>
-
-              <div class="cell">
+              <div class="cell stats">
                 <div class="container stat">
                   <img src="img/stats-int.png" class="statIcon">
                   <input type="number" id="int" value="8" min="3" max="20" class="statNum">
                 </div>
                 <label for="int">Intelligence</label>
               </div>
-
-              <div class="cell">
+              <div class="cell stats">
                 <div class="container stat">
                   <img src="img/stats-wis.png" class="statIcon">
                   <input type="number" id="wis" value="8" min="3" max="20" class="statNum">
                 </div>
                 <label for="wis">Wisdom</label>
               </div>
-
-              <div class="cell">
+              <div class="cell stats">
                 <div class="container stat" >
                   <img src="img/stats-cha.png" class="statIcon">
                   <input type="number" id="cha" value="8" min="3" max="20" class="statNum">
@@ -137,112 +135,105 @@
                 <label for="cha">Charisma</label>
               </div>
             </div>
-            <div class="cell" style="padding-top: 10px; font-size: 14px;">Available Points: <span id="points">27</span></div>
-            <span id="alert">You have exceeded maximum threshold!</span>
+            <div class="cell">Available Points: <a id="points">27</a></div>
+            <div class="cell" id="alert">You have exceeded maximum threshold!</div>
           </div>
-          <div class="row" style="align-items: center; vertical-align: middle;">
+
+        </div>
+        <div class="column" style="flex: 0.7">
+          <div class="row" style="align-items: center; margin: 5px;">
             <input type="number" id="prof" value="2" min="2">
             <h3>Proficiency Bonus</h3>
           </div>
-        </div>
-        <div class="column">
-          <div class="container" id="skills">
-              <h3>Skills</h3>
+          <div class="container" name="SKILLS">
+              <h3>SKILLS</h3>
 
               <h4>STR</h4>
-              <div class="cell">
+              <div class="cell skill">
                 <input type="checkbox" class="myCheck">
-                <span class="skill"><div class="modStr">-1</div> Athletics</span>
+                <span class="modStr">-1</span> Athletics
               </div>
-
-              <hr>
 
               <h4>DEX</h4>
-              <div class="cell">
+              <div class="cell skill">
                 <input type="checkbox" class="myCheck">
-                <span class="skill"><div class="modDex">-1</div> Acrobatics</span>
+                <span class="modDex">-1</span> Acrobatics
               </div>
-              <div class="cell">
+              <div class="cell skill">
                 <input type="checkbox" class="myCheck">
-                <span class="skill"><div class="modDex">-1</div> Sleight of Hand</span>
+                <span class="modDex">-1</span> Sleight of Hand
               </div>
-              <div class="cell">
+              <div class="cell skill">
                 <input type="checkbox" class="myCheck">
-                <span class="skill"><div class="modDex">-1</div> Stealth</span>
+                <span class="modDex">-1</span> Stealth
               </div>
-
-              <hr>
 
               <h4>INT</h4>
-              <div class="cell">
+              <div class="cell skill">
                 <input type="checkbox" class="myCheck">
-                <span class="skill"><div class="modInt">-1</div> Arcana</span>
+                <span class="modInt">-1</span> Arcana
               </div>
-              <div class="cell">
+              <div class="cell skill">
                 <input type="checkbox" class="myCheck">
-                <span class="skill"><div class="modInt">-1</div> History</span>
+                <span class="modInt">-1</span> History
               </div>
-              <div class="cell">
+              <div class="cell skill">
                 <input type="checkbox" class="myCheck">
-                <span class="skill"><div class="modInt">-1</div> Investigation</span>
+                <span class="modInt">-1</span> Investigation
               </div>
-              <div class="cell">
+              <div class="cell skill">
                 <input type="checkbox" class="myCheck">
-                <span class="skill"><div class="modInt">-1</div> Nature</span>
+                <span class="modInt">-1</span> Nature
               </div>
-              <div class="cell">
+              <div class="cell skill">
                 <input type="checkbox" class="myCheck">
-                <span class="skill"><div class="modInt">-1</div> Religion</span>
+                <span class="modInt">-1</span> Religion
               </div>
-
-              <hr>
 
               <h4>WIS</h4>
-              <div class="cell">
+              <div class="cell skill">
                 <input type="checkbox" class="myCheck">
-                <span class="skill"><div class="modWis">-1</div> Animal Handling</span>
+                <span class="modWis">-1</span> Animal Handling
               </div>
-              <div class="cell">
+              <div class="cell skill">
                 <input type="checkbox" class="myCheck">
-                <span class="skill"><div class="modWis">-1</div> Insight</span>
+                <span class="modWis">-1</span> Insight
               </div>
-              <div class="cell">
+              <div class="cell skill">
                 <input type="checkbox" class="myCheck">
-                <span class="skill"><div class="modWis">-1</div> Medicine</span>
+                <span class="modWis">-1</span> Medicine
               </div>
-              <div class="cell">
+              <div class="cell skill">
                 <input type="checkbox" class="myCheck">
-                <span class="skill"><div class="modWis">-1</div> Perception</span>
+                <span class="modWis">-1</span> Perception
               </div>
-              <div class="cell">
+              <div class="cell skill">
                 <input type="checkbox" class="myCheck">
-                <span class="skill"><div class="modWis">-1</div> Survival</span>
+                <span class="modWis">-1</span> Survival
               </div>
-
-              <hr>
 
               <h4>CHA</h4>
-              <div class="cell">
+              <div class="cell skill">
                 <input type="checkbox" class="myCheck">
-                <span class="skill"><div class="modCha">-1</div> Deception</span>
+                <span class="modCha">-1</span> Deception
               </div>
-              <div class="cell">
+              <div class="cell skill">
                 <input type="checkbox" class="myCheck">
-                <span class="skill"><div class="modCha">-1</div> Intimidation</span>
+                <span class="modCha">-1</span> Intimidation
               </div>
-              <div class="cell">
+              <div class="cell skill">
                 <input type="checkbox" class="myCheck">
-                <span class="skill"><div class="modCha">-1</div> Performance</span>
+                <span class="modCha">-1</span> Performance
               </div>
-              <div class="cell">
+              <div class="cell skill">
                 <input type="checkbox" class="myCheck">
-                <span class="skill"><div class="modCha">-1</div> Persuasion</span>
+                <span class="modCha">-1</span> Persuasion
               </div>
             </div>
         </div>
         <div class="column">
           <div class="container" id="description">
-            <h3>Character Description/History</h3>
+            <h3>BACKGROUND/HISTORY</h3>
             <div class="cell">
               <textarea id="hist" rows="6"></textarea>
             </div>
@@ -330,10 +321,8 @@
                 <option title="I value my status and fame very highly.">Vain</option>
               </optgroup>
               <optgroup label="Worldview">
-
                 <option title="I view morals, goals and relationships as meaningless.">Nihilistic</option>
                 <option title="I tend to see the worst in something/someone.">Pessimistic</option>
-
               </optgroup>
             </select>
 
@@ -363,9 +352,10 @@
                 <option title="I always challenge social norms/status quo.">Rebellious</option>
                 <option title="I don't like being ordered around.">Unruly</option>
               </optgroup>
-              <optgroup label="Intrapersonal">
+              <optgroup label="Interpersonal">
                 <option title="I have a hard time trusting people.">Distrustful</option>
                 <option title="I trust people very easily, even if I just met them.">Naive</option>
+                <option title="I lie profusely to other people.">Pathologicak Liar</option>
                 <option title="I have biased preconceptions of others.">Prejudicial</option>
                 <option title="I fall for pretty faces very easily.">Simp</option>
                 <option title="I say things that anger people often.">Uncouth</option>
@@ -376,27 +366,27 @@
           <div class="container" name="BONDS">
             <h3>Bonds</h3>
             <div class="cell">
-              <input type="text" class="bondNames">
+              <input type="text" class="bondNames" maxlength="50">
               <select class="bonds" data-placeholder="Select"><option></option></select>
             </div>
             <div class="cell">
-              <input type="text" class="bondNames">
+              <input type="text" class="bondNames" maxlength="50">
               <select class="bonds" data-placeholder="Select"><option></option></select>
             </div>
             <div class="cell">
-              <input type="text" class="bondNames">
+              <input type="text" class="bondNames" maxlength="50">
               <select class="bonds" data-placeholder="Select"><option></option></select>
             </div>
             <div class="cell">
-              <input type="text" class="bondNames">
+              <input type="text" class="bondNames" maxlength="50">
               <select class="bonds" data-placeholder="Select"><option></option></select>
             </div>
             <div class="cell">
-              <input type="text" class="bondNames">
+              <input type="text" class="bondNames" maxlength="50">
               <select class="bonds" data-placeholder="Select"><option></option></select>
             </div>
             <div class="cell">
-              <input type="text" class="bondNames">
+              <input type="text" class="bondNames" maxlength="50">
               <select class="bonds" data-placeholder="Select"><option></option></select>
             </div>
           </div>
