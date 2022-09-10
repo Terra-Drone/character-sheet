@@ -1,127 +1,3 @@
-//STAT DISTRIBUTION
-
-//>>STR
-$("#str").change(function() {
-  //LIMIT
-  var val = parseInt(this.value)
-  if (val > 20 || val < 3) {
-    alert("Limit exceeded.");
-    val = 8 ;
-    $("#str").val(val);
-  }
-  console.log("STR="+val);
-
-  //update chart
-  myChart.config.data.datasets[0].data[0] = val;
-  myChart.update();
-
-  //calculate modifier
-  var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0)
-  if (mod > 0){ $('.modStr').html("+"+mod); }
-  else { $('.modStr').html(mod); }
-});
-
-//>>DEX
-$("#dex").change(function() {
-  var val = parseInt(this.value)
-  if (val > 20 || val < 3) {
-    alert("Limit exceeded.");
-    val = 8 ;
-    $("#dex").val(val);
-  }
-  console.log("DEX="+val);
-
-  //update chart
-  myChart.config.data.datasets[0].data[1] = val;
-  myChart.update();
-
-  //calculate modifier
-  var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0)
-  if (mod > 0){ $('.modDex').html("+"+mod); }
-  else { $('.modDex').html(mod); }
-});
-
-//>>STA
-$("#sta").change(function() {
-  var val = parseInt(this.value)
-  if (val > 20 || val < 3) {
-    alert("Limit exceeded.");
-    val = 8 ;
-    $("#sta").val(val);
-  }
-  console.log("STA="+val);
-
-  //update chart
-  myChart.config.data.datasets[0].data[0] = val;
-  myChart.update();
-
-  //calculate modifier
-  var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0)
-  if (mod > 0){ $('.modSta').html("+"+mod); }
-  else { $('.modSta').html(mod); }
-});
-
-//>>INT
-$("#int").change(function() {
-  var val = parseInt(this.value)
-  if (val > 20 || val < 3) {
-    alert("Limit exceeded.");
-    val = 8 ;
-    $("#int").val(val);
-  }
-  console.log("INT="+val);
-
-  //update chart
-  myChart.config.data.datasets[0].data[0] = val;
-  myChart.update();
-
-  //calculate modifier
-  var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0)
-  if (mod > 0){ $('.modInt').html("+"+mod); }
-  else { $('.modInt').html(mod); }
-});
-
-//>>WIS
-$("#wis").change(function () {
-  var val = parseInt(this.value)
-  if (val > 20 || val < 3) {
-    alert("Limit exceeded.");
-    val = 8 ;
-    $("#wis").val(val);
-  }
-  console.log("WIS="+val);
-
-  //update chart
-  myChart.config.data.datasets[0].data[0] = val;
-  myChart.update();
-
-  //calculate modifier
-  var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0)
-  if (mod > 0){ $('.modWis').html("+"+mod); }
-  else { $('.modWis').html(mod); }
-});
-
-//>>CHA
-$("#cha").change(function () {
-  var val = parseInt(this.value)
-  if (val > 20 || val < 3) {
-    alert("Limit exceeded.");
-    val = 8 ;
-    $("#cha").val(val);
-  }
-  console.log("CHA="+val);
-
-  //update chart
-  myChart.config.data.datasets[0].data[0] = val;
-  myChart.update();
-
-  //calculate modifier
-  var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0)
-  if (mod > 0){ $('.modCha').html("+"+mod); }
-  else { $('.modCha').html(mod); }
-});
-
-
 //format options for Flaws
 function formatOption(option){
   var $option = $(
@@ -146,24 +22,25 @@ var bonds={
 //onload
 $(document).ready(function() {
   //calc stats-get all elements
-  $(".statNum").each(function(){
-    $(this).change(function(){
-      calcpoints();
+    $(".statNum").each(function(){
+      $(this).change(function(){
+        calcpoints();
+      });
     });
-  });
-
   //Select2 setting
   $('select').select2({
-    dropdownAutoWidth: true });
+    dropdownAutoWidth: false,
+    templateResult: formatOption
+  });
 
-  $('.flaws').select2({
-    dropdownAutoWidth: true,
+  $('.ideals, .flaws').select2({
     height: 'auto',
     multiple: true,
-    maximumSelectionLength: 4,
+    maximumSelectionLength: 3,
     allowClear: true,
-    templateResult: formatOption,
+
   });
+
   //repeat bond options for bond selects
   $.each(bonds, function(i, bondOpt){
     $('.bonds').append($('<option>', {
@@ -171,31 +48,138 @@ $(document).ready(function() {
     }));
   });
 
-})
+});
 
-//calc stat
+//stats
+$("#str").change(function() {
+  var val = parseInt(this.value);
 
-function calcpoints(){
-  var points = 75;
-  $(".statNum").each(function(){
-    points -= parseInt(this.value);
-    if (points < 0){
-      $("#alert").show();
-    } else { $("#alert").hide();}
-  });
-  console.log("Remaining: "+points);
-  $("#points").html(points);
-}
+  console.log("STR="+val);
+  //LIMIT
+  if (val > 20 || val < 3) {
+    alert("Limit exceeded.");
+    val = 8 ;
+    $("#str").val(val);
+    console.log("STR="+val);
+  }
+  //calculate Modifier
+  var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0);
+  if (mod > 0){ $('.modStr').html("+"+mod); }
+  else { $('.modStr').html(mod); }
 
+  //update chart
+  myChart.config.data.datasets[0].data[0] = val;
+  myChart.update();
+});
+$("#dex").change(function() {
+  var val = parseInt(this.value);
+  console.log("DEX="+val);
+  //LIMIT
+  if (val > 20 || val < 3) {
+    alert("Limit exceeded.");
+    val = 8 ;
+    $("#dex").val(val);
+    console.log("DEX="+val);
+  }
+  //calculate Modifier
+  var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0);
+  if (mod > 0){ $('.modDex').html("+"+mod); }
+  else { $('.modDex').html(mod); }
+
+  //update chart
+  myChart.config.data.datasets[0].data[1] = val;
+  myChart.update();
+});
+$("#con").change(function() {
+  var val = parseInt(this.value);
+
+  console.log("CON="+val);
+  //LIMIT
+  if (val > 20 || val < 3) {
+    alert("Limit exceeded.");
+    val = 8 ;
+    $("#con").val(val);
+    console.log("CON="+val);
+  }
+  //calculate Modifier
+  var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0);
+  if (mod > 0){ $('.modCon').html("+"+mod); }
+  else { $('.modCon').html(mod); }
+
+  //update chart
+  myChart.config.data.datasets[0].data[2] = val;
+  myChart.update();
+});
+$("#int").change(function() {
+  var val = parseInt(this.value);
+
+  console.log("INT="+val);
+  //LIMIT
+  if (val > 20 || val < 3) {
+    alert("Limit exceeded.");
+    val = 8 ;
+    $("#int").val(val);
+    console.log("INT="+val);
+  }
+  //calculate Modifier
+  var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0);
+  if (mod > 0){ $('.modInt').html("+"+mod); }
+  else { $('.modInt').html(mod); }
+
+  //update chart
+  myChart.config.data.datasets[0].data[3] = val;
+  myChart.update();
+});
+$("#wis").change(function() {
+  var val = parseInt(this.value);
+
+  console.log("WIS="+val);
+  //LIMIT
+  if (val > 20 || val < 3) {
+    alert("Limit exceeded.");
+    val = 8 ;
+    $("#wis").val(val);
+    console.log("WIS="+val);
+  }
+  //calculate Modifier
+  var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0);
+  if (mod > 0){ $('.modWis').html("+"+mod); }
+  else { $('.modWis').html(mod); }
+
+  //update chart
+  myChart.config.data.datasets[0].data[4] = val;
+  myChart.update();
+});
+$("#cha").change(function() {
+  var val = parseInt(this.value);
+
+  console.log("CHA="+val);
+  //LIMIT
+  if (val > 20 || val < 3) {
+    alert("Limit exceeded.");
+    val = 8 ;
+    $("#cha").val(val);
+    console.log("CHA="+val);
+  }
+  //calculate Modifier
+  var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0);
+  if (mod > 0){ $('.modCha').html("+"+mod); }
+  else { $('.modCha').html(mod); }
+
+  //update chart
+  myChart.config.data.datasets[0].data[5] = val;
+  myChart.update();
+});
 //RADAR Chart
 var ctx = $("#myChart")[0].getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'radar',
     data: {
-        labels: ["STR", "DEX", "STA", "INT", "WIS", "CHA"],
+        labels: ["STR", "DEX", "CON", "INT", "WIS", "CHA"],
         datasets: [{
-            data: [str.value, dex.value, sta.value, int.value, wis.value, cha.value],
+            data: [8, 8, 8, 8, 8, 8],
             backgroundColor: 'rgba(0, 0, 0, 0.1)',
+            pointRadius: 5,
             pointBackgroundColor: [
                 '#ED1C24',
                 '#0071BC',
@@ -204,6 +188,7 @@ var myChart = new Chart(ctx, {
                 '#93278F',
                 '#ED1E79'
             ],
+            pointHoverRadius: 8,
             pointHoverBackgroundColor : '#fff',
             pointHoverBorderColor: [
               '#ED1C24',
@@ -219,7 +204,81 @@ var myChart = new Chart(ctx, {
     options: {
       maintainAspectRatio: true,
       plugins: {
-        legend: {display: false}
+        legend: {display: false},
+        dragData: {
+          round: 0,
+          showTooltip: true,
+          onDragStart: function(e, element) {
+
+          },
+          onDrag: function(e, datasetIndex, index, value) {
+            if (value < 3) { return false };
+            if (value > 20) { return false };
+
+            switch (index) {
+              case 0: $('#str').val(value); break;
+              case 1: $('#dex').val(value); break;
+              case 2: $('#con').val(value); break;
+              case 3: $('#int').val(value); break;
+              case 4: $('#wis').val(value); break;
+              case 5: $('#cha').val(value); break;
+              default: break;
+            };
+          },
+          onDragEnd: function(e, datasetIndex, index, value) {
+            switch (index) {
+              case 0:
+                console.log("STR: " + value);
+                //calculate modifier
+                var mod = parseFloat(Math.floor(((value-10)/2)*100)/100).toFixed(0)
+                if (mod > 0){ $('.modStr').html("+"+mod); }
+                  else { $('.modStr').html(mod); }
+                console.log("modifier: " + mod);
+                break;
+              case 1:
+              console.log("DEX: " + value);
+              //calculate modifier
+              var mod = parseFloat(Math.floor(((value-10)/2)*100)/100).toFixed(0)
+              if (mod > 0){ $('.modDex').html("+"+mod); }
+                else { $('.modDex').html(mod); }
+              console.log("modifier: " + mod);
+                break;
+              case 2:
+              console.log("CON: " + value);
+              //calculate modifier
+              var mod = parseFloat(Math.floor(((value-10)/2)*100)/100).toFixed(0)
+              if (mod > 0){ $('.modCon').html("+"+mod); }
+                else { $('.modCon').html(mod); }
+              console.log("modifier: " + mod);
+                break;
+              case 3:
+              console.log("INT: " + value);
+              //calculate modifier
+              var mod = parseFloat(Math.floor(((value-10)/2)*100)/100).toFixed(0)
+              if (mod > 0){ $('.modInt').html("+"+mod); }
+                else { $('.modInt').html(mod); }
+              console.log("modifier: " + mod);
+                break;
+              case 4:
+              console.log("WIS: " + value);
+              //calculate modifier
+              var mod = parseFloat(Math.floor(((value-10)/2)*100)/100).toFixed(0)
+              if (mod > 0){ $('.modWis').html("+"+mod); }
+                else { $('.modWis').html(mod); }
+              console.log("modifier: " + mod);
+                break;
+              case 5:
+              console.log("CHA: " + value);
+              console.log("modifier: " + mod);
+              //calculate modifier
+              var mod = parseFloat(Math.floor(((value-10)/2)*100)/100).toFixed(0)
+              if (mod > 0){ $('.modCha').html("+"+mod); }
+                else { $('.modCha').html(mod); }
+                break;
+              default: break;
+          }
+        },
+        }
       },
       line: {
         borderWidth: 3
@@ -230,7 +289,7 @@ var myChart = new Chart(ctx, {
           min: 0,
           max: 20,
           ticks: {
-            display: false, maxTicksLimit: 5
+            display: true, maxTicksLimit: 5
           }
         }
       }
@@ -240,16 +299,20 @@ var myChart = new Chart(ctx, {
 //Image Thumb
 var dropArea = $(".drag-image"),
     dragText = $("#dragText"),
-    browseBtn = $("#browseBtn"),
-    thumbnail = $("#thumb");
+    browseBtn = $(".browseBtn"),
+    thumbnail = $(".thumb");
 
 let file;
 
-browseBtn.click(function(){ thumbnail.click(); }); //replace input button w styled button
+browseBtn.click(function(){
+  event.preventDefault();
+  thumbnail.click();
+}); //replace input button w styled button
 
 thumbnail.change(function() {
   file = this.files[0];
   viewfile();
+  $(dropArea).css("border", "none");
 });
 
 dropArea.on("dragenter", function(){
@@ -271,6 +334,7 @@ dropArea.bind("drop", function(event) {
   event.stopPropagation();
   file = event.target.files[0];
   viewfile();
+  $(dropArea).css("border", "none");
 });
 
 function viewfile(){

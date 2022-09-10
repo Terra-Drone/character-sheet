@@ -1,4 +1,4 @@
-"<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
@@ -12,6 +12,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js" integrity="sha256-Y26AMvaIfrZ1EQU49pf6H4QzVTrOI8m9wQYKkftBt4s=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.js" integrity="sha256-RIecqpGslbgq3kTN1WEkdfvCEOQusfVsvX0UmRw9Ck0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js" integrity="sha256-Y26AMvaIfrZ1EQU49pf6H4QzVTrOI8m9wQYKkftBt4s=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-dragdata@2.2.3/dist/chartjs-plugin-dragdata.min.js"></script>
+
     <!--Select2-->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -21,383 +23,650 @@
     <div class="header">
 
     </div>
-
-    <div class="main">
-      <div class="row">
-        <div class="column" style="flex: 0">
-          <form class="drag-image" method="post">
-            <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
-            <h6 id="dragText">Drag & Drop File Here</h6>
-            <span>OR</span>
-            <button id="browseBtn">Browse File</button>
-            <input type="file" id="thumb" hidden>
-          </form>
-
-          <div class="row" id="palette">
-            <div><input type="color" id="color" name="p1" value="#ffffff" /></div>
-            <div><input type="color" id="color" name="p2" value="#ffffff" /></div>
-            <div><input type="color" id="color" name="p3" value="#ffffff" /></div>
-            <div><input type="color" id="color" name="p4" value="#ffffff" /></div>
-            <div><input type="color" id="color" name="p5" value="#ffffff" /></div>
-          </div>
+    <div class="column page" id="page1">
+      <form class="drag-image portrait" method="post">
+        <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+        <h6>Upload Portrait</h6>
+        <button class="browseBtn">Browse File</button>
+        <input type="file" class="thumb" hidden>
+      </form>
+      <div class="row container bio" style="flex: 0">
+        <div class="row cell">
+          <input type="text" name="name" maxlength="100"/>
+          <label for="name">NAME</label>
         </div>
-        <div class="container" id="bio">
-          <div class="cell"><label for="name">NAME: </label><span><input type="text" name="name" maxlength="100"/></span></div>
-          <div class="cell"><label for="nickname">NICKNAME(S): </label><span><input type="text" name="nickname" maxlength="100"></span></div>
-          <div class="cell"><label for="race">RACE/SPECIES: </label><span><input type="text" name="race" maxlength="50"></span></div>
+        <div class="row">
           <div class="cell">
-            <label for="age">AGE: </label> <input type="number" id="age" min="1">
-            <select name="age-range">
-              <option>MONTH(S)</option>
-              <option selected>YEAR(S)</option>
-              <option>MILLENIA</option>
-              <option>N/A</option>
-            </select>
+            <input type="text" name="nickname" maxlength="50">
+            <label for="nickname">NICKNAME(S)</label>
           </div>
           <div class="cell">
-              <label for="gender">GENDER: </label> <span><input type="text" name="gender" maxlength="30"/></span>
-            </div>
-          <div class="cell">
-            <label for="orient">ORIENTATION: </label> <span><input type="text" name="orient" maxlength="30"/></span>
-          </div>
-
-          <div class="cell">
-            <label for="align">ALIGNMENT: </label>
-            <select id="align">
-              <optgroup label="GOOD">
-                <option>LAWFUL GOOD</option>
-                <option>NEUTRAL GOOD</option>
-                <option>CHAOTIC GOOD</option>
-              </optgroup>
-              <optgroup label="NEUTRAL">
-                <option>LAWFUL NEUTRAL</option>
-                <option>TRUE NEUTRAL</option>
-                <option>CHAOTIC NEUTRAL</option>
-              </optgroup>
-              <optgroup label="EVIL">
-                <option>LAWFUL EVIL</option>
-                <option>NEUTRAL EVIL</option>
-                <option>CHAOTIC EVIL</option>
-              </optgroup>
-            </select>
-          </div>
-          <div class="cell">
-            <label for="class">CLASS/OCCUPATION: </label><span> <input type="text" name="class" maxlength="50"/></span>
+            <input type="text" name="player" maxlength="20">
+            <label for="race">PLAYER</label>
           </div>
         </div>
       </div>
-
-      <div class="row">
-        <div class="column">
-          <div class="container" name="STATS"style="align-items: center">
-            <div class="cell" style="padding: 10px"><canvas id="myChart" ></canvas></div>
+      <div class="row" style="justify-content: flex-start;">
+        <div class="column" style="max-width: 45%">
+          <div class="column container bio">
+            <div class="cell">
+              <input type="text" id="race" maxlength="30"/>
+              <label for="gender">RACE/SPECIES</label>
+            </div>
             <div class="row">
-              <div class="cell stats">
-                <div class="container stat">
-                  <img src="img/stats-str.png" class="statIcon">
-                  <input type="number" id="str" value="8" min="3" max="20" class="statNum">
-                </div>
-                <label for="str">Strength</label>
+              <div class="cell">
+                <input type="text" id="gender" maxlength="30"/>
+                <label for="gender">GENDER</label>
               </div>
-              <div class="cell stats">
-                <div class="container stat">
-                  <img src="img/stats-dex.png" class="statIcon">
-                  <input type="number" id="dex" value="8" min="3" max="20" class="statNum">
-                </div>
-                <label for="dex">Dexterity</label>
-              </div>
-              <div class="cell stats">
-                <div class="container stat">
-                  <img src="img/stats-sta.png" class="statIcon">
-                  <input type="number" id="sta" value="8" min="3" max="20" class="statNum">
-                </div>
-                <label for="sta">Stamina</label>
-              </div>
-              <div class="cell stats">
-                <div class="container stat">
-                  <img src="img/stats-int.png" class="statIcon">
-                  <input type="number" id="int" value="8" min="3" max="20" class="statNum">
-                </div>
-                <label for="int">Intelligence</label>
-              </div>
-              <div class="cell stats">
-                <div class="container stat">
-                  <img src="img/stats-wis.png" class="statIcon">
-                  <input type="number" id="wis" value="8" min="3" max="20" class="statNum">
-                </div>
-                <label for="wis">Wisdom</label>
-              </div>
-              <div class="cell stats">
-                <div class="container stat" >
-                  <img src="img/stats-cha.png" class="statIcon">
-                  <input type="number" id="cha" value="8" min="3" max="20" class="statNum">
-                </div>
-                <label for="cha">Charisma</label>
+              <div class="cell">
+                <input type="text" id="age">
+                <label for="age">AGE</label>
               </div>
             </div>
-            <div class="cell">Available Points: <a id="points">27</a></div>
-            <div class="cell" id="alert">You have exceeded maximum threshold!</div>
-          </div>
-
-        </div>
-        <div class="column" style="flex: 0.7">
-          <div class="row" style="align-items: center; margin: 5px;">
-            <input type="number" id="prof" value="2" min="2">
-            <h3>Proficiency Bonus</h3>
-          </div>
-          <div class="container" name="SKILLS">
-              <h3>SKILLS</h3>
-
-              <h4>STR</h4>
-              <div class="cell skill">
-                <input type="checkbox" class="myCheck">
-                <span class="modStr">-1</span> Athletics
-              </div>
-
-              <h4>DEX</h4>
-              <div class="cell skill">
-                <input type="checkbox" class="myCheck">
-                <span class="modDex">-1</span> Acrobatics
-              </div>
-              <div class="cell skill">
-                <input type="checkbox" class="myCheck">
-                <span class="modDex">-1</span> Sleight of Hand
-              </div>
-              <div class="cell skill">
-                <input type="checkbox" class="myCheck">
-                <span class="modDex">-1</span> Stealth
-              </div>
-
-              <h4>INT</h4>
-              <div class="cell skill">
-                <input type="checkbox" class="myCheck">
-                <span class="modInt">-1</span> Arcana
-              </div>
-              <div class="cell skill">
-                <input type="checkbox" class="myCheck">
-                <span class="modInt">-1</span> History
-              </div>
-              <div class="cell skill">
-                <input type="checkbox" class="myCheck">
-                <span class="modInt">-1</span> Investigation
-              </div>
-              <div class="cell skill">
-                <input type="checkbox" class="myCheck">
-                <span class="modInt">-1</span> Nature
-              </div>
-              <div class="cell skill">
-                <input type="checkbox" class="myCheck">
-                <span class="modInt">-1</span> Religion
-              </div>
-
-              <h4>WIS</h4>
-              <div class="cell skill">
-                <input type="checkbox" class="myCheck">
-                <span class="modWis">-1</span> Animal Handling
-              </div>
-              <div class="cell skill">
-                <input type="checkbox" class="myCheck">
-                <span class="modWis">-1</span> Insight
-              </div>
-              <div class="cell skill">
-                <input type="checkbox" class="myCheck">
-                <span class="modWis">-1</span> Medicine
-              </div>
-              <div class="cell skill">
-                <input type="checkbox" class="myCheck">
-                <span class="modWis">-1</span> Perception
-              </div>
-              <div class="cell skill">
-                <input type="checkbox" class="myCheck">
-                <span class="modWis">-1</span> Survival
-              </div>
-
-              <h4>CHA</h4>
-              <div class="cell skill">
-                <input type="checkbox" class="myCheck">
-                <span class="modCha">-1</span> Deception
-              </div>
-              <div class="cell skill">
-                <input type="checkbox" class="myCheck">
-                <span class="modCha">-1</span> Intimidation
-              </div>
-              <div class="cell skill">
-                <input type="checkbox" class="myCheck">
-                <span class="modCha">-1</span> Performance
-              </div>
-              <div class="cell skill">
-                <input type="checkbox" class="myCheck">
-                <span class="modCha">-1</span> Persuasion
-              </div>
+            <div class="cell">
+              <input type="text" name="class" maxlength="50"/>
+              <label for="class">CLASS</label>
             </div>
-        </div>
-        <div class="column">
-          <div class="container" id="description">
+            <div class="cell">
+              <input type="text" name="subclass" maxlength="50"/>
+              <label for="subclass">SUBCLASS</label>
+            </div>
+            <div class="cell">
+              <input type="text" name="orient" maxlength="30"/>
+              <label for="orient">ORIENTATION</label>
+            </div>
+            <div class="cell">
+              <select class="align">
+                <option title="I tend to conform to tradition. The needs of others outweigh my own.">PATH OF INTEGRITY</option>
+                <option title="I aim to enhance the welfare of others. Selfish interests are not my thing.">PATH OF MERCY</option>
+                <option title="I rely on my own judgement. I'm comfortable with diversity.">PATH OF LIBERTY</option>
+                <option title="I conform to traditions. I value order.">PATH OF HARMONY</option>
+                <option title="I don't take sides. I act on my own personal code.">PATH OF EQUITY</option>
+                <option title="I strive for mastery. I'm open to change.">PATH OF AUTONOMY</option>
+                <option title="I overcome threats and challenges by being in control of the situation.">PATH OF ASCENDENCY</option>                    <option title="I don't take sides. I act on my own personal code.">PATH OF EQUITY</option>
+                <option title="I strive for superiority and esteem.">PATH OF SUPREMACY</option>
+                <option title="I put my own desires above all else, even the wellbeing of others.">PATH OF DISCORD</option>
+              </select>
+              <label for="align">ALIGNMENT</label>
+            </div>
+          </div>
+          <div class="column container" id="description">
             <h3>BACKGROUND/HISTORY</h3>
-            <div class="cell">
-              <textarea id="hist" rows="6"></textarea>
-            </div>
-          </div>
-          <div class="container" id="personality">
-            <h3>Personality</h3>
-            <div class="column" style="align-content: center">
-              <table>
-                <tr><th colspan="3">OPENNESS</th></tr>
-                <tr>
-                  <td>Conventional,<br>Cautious</td>
-                  <td> <input type="range" min="0" max="10"> </td>
-                  <td>Inventive,<br>Curious</td>
-                </tr>
-
-                <tr><th colspan="3">CONSCIENTIOUSNESS</th></tr>
-                <tr>
-                  <td>Efficient,<br>Organized</td>
-                  <td> <input type="range" min="0" max="10"> </td>
-                  <td>Impulsive,<br>Careless</td>
-                </tr>
-
-                <tr><th colspan="3">EXTRAVERSION</th></tr>
-                <tr>
-                  <td>Introverted</td>
-                  <td> <input type="range" min="0" max="10"> </td>
-                  <td>Extroverted</td>
-                </tr>
-
-                <tr>
-                  <th></th>
-                  <th>AGREEABLENESS</th>
-                  <th></th>
-                </tr>
-                <tr>
-                  <td>Critical,<br>Detached</td>
-                  <td> <input type="range" min="0" max="10"> </td>
-                  <td>Friendly,<br>Compassionate</td>
-                </tr>
-
-                <tr>
-                  <th></th>
-                  <th>NEUROTICISM</th>
-                  <th></th>
-                </tr>
-                <tr>
-                  <td>Secure,<br>Confident</td>
-                  <td> <input type="range" min="0" max="10"> </td>
-                  <td>Sensitive,<br>Anxious</td>
-                </tr>
-              </table>
-            </div>
+            <textarea id="hist" rows="8"></textarea>
           </div>
         </div>
+
       </div>
-
-      <div class="row" style="page-break-before: always">
+      <!--div class="row">
+        <div class="column container">
+          <h3>PERSONALITY TRAITS</h3>
+          <textarea id="personality" rows="3"></textarea>
+        </div>
+        <div class="column container">
+          <h3>IDEALS</h3>
+          <textarea id="ideals" rows="3"></textarea>
+        </div>
+        <div class="column container">
+          <h3>BONDS</h3>
+          <textarea id="bonds" rows="3"></textarea>
+        </div>
+      </div>-->
+    </div>
+    <div class="column page" id="page2">
+      <div class="row">
         <div class="column">
-          <div class="container" name="ADDSKILLS">
-            <h3>Additional Skills/Proficiencies</h3>
-            <div class="container" id="lang">
-              <span><label for="language">Language</label><textarea name="language" rows="3"></textarea></span>
+          <div class="cell"><canvas id="myChart" ></canvas></div>
+          <div class="cell" style="margin: 8.5px 0">
+            <div class="hex">
+              <div class="hex inner">
+                <input type="number" id="level" value="0" min="0"/>
+              </div>
             </div>
-            <div class="container" id="sp_skill">
-              <span><label for="add">Special Skills</label><textarea name="add" rows="3"></textarea></span>
-            </div>
+            <div class="ribbon" id="level_label"><span>LEVEL</span></div>
           </div>
         </div>
         <div class="column">
-          <div class="container" name="FLAWS">
-            <h3>Flaws</h3>
+          <div class="row">
+            <div class="column">
+              <div class="cell">
+                <input type="number" value="8" class="statNum" id="str"/>
+                <div class="ribbon" id="strength"><span>STRENGTH</span></div>
+              </div>
+              <div class="column">
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modCon mod">-1</div>
+                  <div>Saving Throw</div>
+                </div>
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modStr mod">-1</div>
+                  <div>Athletics</div>
+                </div>
+              </div>
 
-            <h4>Mind</h4>
-            <select class="flaws" multiple="multiple" data-placeholder="Select">
-              <optgroup label="Thinking">
-                <option title="I obsess over something to my own detriment.">Obsessive</option>
-                <option title="I forgo simple answers for complicated solutions.">Overthinker</option>
-                <option title="I expect perfection from others and myself.">Perfectionist</option>
-                <option title="I feel like the world is out to get me.">Paranoid</option>
-                <option title="I don't like to change my mind or methods.">Stubborn</option>
-              </optgroup>
-              <optgroup label="Self Image">
-                <option title="I believe I'm better than everyone else.">Arrogant</option>
-                <option title="I am the embodiment of perfection! Worship me!">Narcissistic</option>
-                <option title="I value my status and fame very highly.">Vain</option>
-              </optgroup>
-              <optgroup label="Worldview">
-                <option title="I view morals, goals and relationships as meaningless.">Nihilistic</option>
-                <option title="I tend to see the worst in something/someone.">Pessimistic</option>
-              </optgroup>
-            </select>
-
-            <h4>Ethics</h4>
-            <select class="flaws" multiple="multiple" data-placeholder="Select">
-              <option title="I will save myself first, even at the expense of others.">Cowardly</option>
-              <option title="I think no cost is too great if it gets results.">Immoral</option>
-              <option title="I'll let someone take the blame for my actions.">Irresponsible</option>
-              <option title="I'll say anything to avoid work.">Lazy</option>
-              <option title="I trick people into doing what I want.">Manipulative</option>
-              <option title="I believe violence solves everything.">Violent</option>
-            </select>
-
-            <h4>Quirks</h4>
-            <select class="flaws" multiple="multiple" data-placeholder="Select">
-              <option title="I have a terrible poker face.">Bad Liar</option>
-              <option title="I am terrible at keeping secrets.">Blabbermouth</option>
-              <option title="I tend to drop things.">Clumsy</option>
-              <option title="I forget things easily.">Forgetful</option>
-              <option title="I get frightened very easily.">Scaredy Cat</option>
-            </select>
-
-            <h4>Social</h4>
-            <select class="flaws" multiple="multiple" data-placeholder="Select">
-              <optgroup label="Organizational">
-                <option title="I will follow authorities without question.">Gullible</option>
-                <option title="I always challenge social norms/status quo.">Rebellious</option>
-                <option title="I don't like being ordered around.">Unruly</option>
-              </optgroup>
-              <optgroup label="Interpersonal">
-                <option title="I have a hard time trusting people.">Distrustful</option>
-                <option title="I trust people very easily, even if I just met them.">Naive</option>
-                <option title="I lie profusely to other people.">Pathologicak Liar</option>
-                <option title="I have biased preconceptions of others.">Prejudicial</option>
-                <option title="I fall for pretty faces very easily.">Simp</option>
-                <option title="I say things that anger people often.">Uncouth</option>
-              </optgroup>
-            </select>
-
+            </div>
+            <div class="cell" style="margin-top: 8.5px">
+              <div class="hex">
+                <div class="hex inner">
+                  <input type="number" id="profMod" value="2" min="2">
+                </div>
+              </div>
+              <div class="ribbon" id="prof_label"><span>PROFICIENCY</span></div>
+            </div>
           </div>
-          <div class="container" name="BONDS">
-            <h3>Bonds</h3>
-            <div class="cell">
-              <input type="text" class="bondNames" maxlength="50">
-              <select class="bonds" data-placeholder="Select"><option></option></select>
+          <div class="row" style="padding-top: 5px">
+            <div class="column">
+              <div class="cell">
+                <input type="number" value="8" class="statNum" id="dex"/>
+                <div class="ribbon" id="dexterity"><span>DEXTERITY</span></div>
+              </div>
+              <div class="column">
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modCon mod">-1</div>
+                  <div>Saving Throw</div>
+                </div>
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modDex mod">-1</div>
+                  <div>Acrobatics</div>
+                </div>
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modDex mod">-1</div>
+                  <div>Sleight of Hand</div>
+                </div>
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modDex mod">-1</div>
+                  <div>Stealth</div>
+                </div>
+              </div>
             </div>
-            <div class="cell">
-              <input type="text" class="bondNames" maxlength="50">
-              <select class="bonds" data-placeholder="Select"><option></option></select>
+            <div class="column">
+              <div class="cell">
+                <div class="shield">
+                  <input type="number" value="0" min="0" id="armour"/>
+                </div>
+                <div class="ribbon" id="armour_label"><span>ARMOUR CLASS</span></div>
+              </div>
+              <div class="cell">
+                <input type="number" value="0" min="0" id="initiative"/>
+                <div class="ribbon" id="initiative_label"><span>INITIATIVE</span></div>
+              </div>
             </div>
-            <div class="cell">
-              <input type="text" class="bondNames" maxlength="50">
-              <select class="bonds" data-placeholder="Select"><option></option></select>
+          </div>
+          <div class="row" style="padding-top: 5px">
+            <div class="column">
+              <div class="column">
+                <div class="cell">
+                  <input type="number" value="8" class="statNum" id="con"/>
+                  <div class="ribbon" id="constitution"><span>CONSTITUTION</span></div>
+                </div>
+                <div class="column">
+                  <div class="cell skill">
+                    <input type="checkbox" class="myCheck">
+                    <div class="modCon mod">-1</div>
+                    <div>Saving Throw</div>
+                  </div>
+                </div>
+              </div>
+              <div class="column" style="padding-top: 5px">
+                <div class="cell">
+                  <input type="number" value="8" class="statNum" id="int"/>
+                  <div class="ribbon" id="intelligence"><span>INTELLIGENCE</span></div>
+                </div>
+                <div class="column">
+                  <div class="cell skill">
+                    <input type="checkbox" class="myCheck">
+                    <div class="modInt mod">-1</div>
+                    <div>Arcana</div>
+                  </div>
+                  <div class="cell skill">
+                    <input type="checkbox" class="myCheck">
+                    <div class="modInt mod">-1</div>
+                    <div>History</div>
+                  </div>
+                  <div class="cell skill">
+                    <input type="checkbox" class="myCheck">
+                    <div class="modInt mod">-1</div>
+                    <div>Investigation</div>
+                  </div>
+                  <div class="cell skill">
+                    <input type="checkbox" class="myCheck">
+                    <div class="modInt mod">-1</div>
+                    <div>Nature</div>
+                  </div>
+                  <div class="cell skill">
+                    <input type="checkbox" class="myCheck">
+                    <div class="modInt mod">-1</div>
+                    <div>Religion</div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="cell">
-              <input type="text" class="bondNames" maxlength="50">
-              <select class="bonds" data-placeholder="Select"><option></option></select>
+          </div>
+          <div class="row" style="padding-top: 5px">
+            <div class="column">
+              <div class="cell">
+                <input type="number" value="8" class="statNum" id="wis"/>
+                <div class="ribbon" id="wisdom"><span>WISDOM</span></div>
+              </div>
+              <div class="column">
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modWis mod">-1</div>
+                  <div>Animal Handling</div>
+                </div>
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modWis mod">-1</div>
+                  <div>Insight</div>
+                </div>
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modWis mod">-1</div>
+                  <div>Medicine</div>
+                </div><div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modWis mod">-1</div>
+                  <div>Perception</div>
+                </div>
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modWis mod">-1</div>
+                  <div>Survival</div>
+                </div>
+              </div>
             </div>
-            <div class="cell">
-              <input type="text" class="bondNames" maxlength="50">
-              <select class="bonds" data-placeholder="Select"><option></option></select>
+            <div class="cell" style="margin-top: 8.5px">
+              <div class="hex">
+                <div class="hex inner">
+                  <input type="number" id="p_percept" value="0" min="0"/>
+                </div>
+              </div>
+              <div class="ribbon" id="p_percept_label"><span>PASSIVE PERCEPTION</span></div>
             </div>
-            <div class="cell">
-              <input type="text" class="bondNames" maxlength="50">
-              <select class="bonds" data-placeholder="Select"><option></option></select>
+          </div>
+          <div class="row" style="padding-top: 5px">
+            <div class="column">
+              <div class="cell">
+                <input type="number" value="8" class="statNum" id="cha"/>
+                <div class="ribbon" id="charisma"><span>CHARISMA</span></div>
+              </div>
+              <div class="column">
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modCha mod">-1</div> Deception
+                </div>
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modCha mod">-1</div> Intimidation
+                </div>
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modCha mod">-1</div> Performance
+                </div>
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modCha mod">-1</div> Persuasion
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
     </div>
+
+    <!--div class="row page" id="page2">
+
+      <div class="column" style="flex: 1">
+        <div class="container" id="abilities">
+          <h3>ABILITIES</h3>
+          <div class="cell">
+            <div class="column">
+              <form class="drag-image abil" method="post">
+                <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                <button class="browseBtn">Browse File</button>
+                <input type="file" class="thumb" hidden>
+              </form>
+            </div>
+            <div class="column">
+              <div class="row">
+                <div class="container"><h5>1</h5></div>
+                <input type="text">
+              </div>
+              <textarea name="name" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="cell">
+            <div class="column">
+              <form class="drag-image abil" method="post">
+                <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                <button class="browseBtn">Browse File</button>
+                <input type="file" class="thumb" hidden>
+              </form>
+            </div>
+            <div class="column">
+              <div class="row">
+                <div class="container"><h5>2</h5></div>
+                <input type="text">
+              </div>
+              <textarea name="name" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="cell">
+            <div class="column">
+              <form class="drag-image abil" method="post">
+                <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                <button class="browseBtn">Browse File</button>
+                <input type="file" class="thumb" hidden>
+              </form>
+            </div>
+            <div class="column">
+              <div class="row">
+                <div class="container"><h5>3</h5></div>
+                <input type="text">
+              </div>
+              <textarea name="name" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="cell">
+            <div class="column">
+              <form class="drag-image abil" method="post">
+                <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                <button class="browseBtn">Browse File</button>
+                <input type="file" class="thumb" hidden>
+              </form>
+            </div>
+            <div class="column">
+              <div class="row">
+                <div class="container"><h5>4</h5></div>
+                <input type="text">
+              </div>
+              <textarea name="name" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column" style="flex: 1">
+        <div class="container" id="ideals">
+          <h3>IDEALS</h3>
+          <h4>Lawful/Chaotic</h4>
+          <select class="ideals" multiple="multiple" data-placeholder="Select">
+            <optgroup label="Lawful">
+              <option title="It is the duty of all civilized people to strengthen the bonds of community and the security of civilization.">Community</option>
+              <option title="I trust that my deity will guide my actions. I have faith that if I work hard, things will go well.">Faith</option>
+              <option title="No one should get preferential treatment before the law, and no one is above the law.">Fairness (Law)</option>
+              <option title="I never target people who can't afford to lose a few coins.">Fairness (Moral)</option>
+              <option title="We all do the work, so we all share in the rewards.">Fairness (Reward)</option>
+              <option title="If I dishonor myself, I dishonor my whole clan.">Honor (Family/Community)</option>
+              <option title="I don't steal from others in the trade.">Honor (Moral)</option>
+              <option title="Emotions must not cloud our sense of what is right and true, or our logical thinking.">Logic</option>
+              <option title="I do what I must and obey just authority.">Responsibility (Moral)</option>
+              <option title="It is my duty to respect the authority of those above me, just as those below me must respect mine.">Responsibility (Authority)</option>
+              <option title="The ancient traditions of worship and sacrifice must be preserved and upheld.">Tradition (Faith)</option>
+              <option title="The stories, legends, and songs of the past must never be forgotten.">Tradition (Culture)</option>
+              <option title="I hope to one day rise to the top of my faith's religious hierarchy.">Power (Faith)</option>
+            </optgroup>
+            <optgroup label="Chaotic">
+              <option title="We must help bring about the changes the gods are constantly working in the world.">Change (for Faith)</option>
+              <option title="Life is like the seasons, in constant change, and we must change with it.">Change (to Adapt)</option>
+              <option title="The low is lifted up, and the high and mighty are brought down. Change is the nature of things.">Change (for Moral)</option>
+              <option title="I never run the same con twice.">Creativity (Trickery)</option>
+              <option title="The world is in need of new ideas and bold action.">Creativity (Ideas)</option>
+              <option title="I am a free spirit--no one tells me what to do.">Independence (Self)</option>
+              <option title="I must prove that I can handle myself without the coddling of my family.">Independence (Family)</option>
+              <option title="When people follow orders blindly they embrace a kind of tyranny.">Independence (Authority)</option>
+              <option title="Chains are meant to be broken, as are those who would forge them.">Freedom (Body)</option>
+              <option title="Tyrants must not be allowed to oppress the people.">Freedom (Authority)</option>
+              <option title="Everyone should be free to pursue his or her livelihood.">Freedom (Mind)</option>
+              <option title="The sea is freedom--the freedom to go anywhere and do anything.">Freedom (Travel)</option>
+              <option title="Inquiry and curiosity are the pillars of progress.">Free Thinking</option>
+              <option title="Nothing should fetter the infinite possibility inherent in all existence.">No Limits</option>
+            </optgroup>
+          </select>
+
+          <h4>Neutral/Any</h4>
+          <select class="ideals" multiple="multiple" data-placeholder="Select">
+            <optgroup label="Neutral">
+              <option title="I like seeing the smiles on people's faces when I perform. That's all that matters.">People (Happiness)</option>
+              <option title="I help people who help me--that's what keeps us alive.">People (Fairness)</option>
+              <option title="I'm committed to the people I care about, not to ideals.">People (Family/Community)</option>
+              <option title="Ideals aren't worth killing for or going to war for.">Ideals</option>
+              <option title="The path to power and self-improvement is through knowledge.">Knowledge</option>
+              <option title="Meddling in the affairs of others only causes trouble.">Live & Let Live</option>
+              <option title="The natural world is more important than all the constructs of civilization.">Nature</option>
+              <option title="There's no good pretending to be something I'm not.">Sincerity</option>
+            </optgroup>
+            <optgroup label="Any">
+              <option title=" I seek to prove my self worthy of my god's favor by matching my actions against his or her teachings.">Aspiration (Faith)</option>
+              <option title="I'm determined to make something of myself.">Aspiration (Legacy)</option>
+              <option title="I'm going to prove that I'm worthy of a better life.">Aspiration (Self-Worth)</option>
+              <option title="I work hard to be the best there is at my craft.">Aspiration (Art/Craftsmanship)</option>
+              <option title="Someday I'll own my own ship and chart my own destiny.">Aspiration (Travel)</option>
+              <option title="Nothing and no one can steer me away from my higher calling.">Destiny</option>
+              <option title="Art should reflect the soul; it should come from within and reveal who we really are.">Honesty (Self)</option>
+              <option title="My city, nation, or people are all that matters.">Nation</option>
+              <option title="If you know yourself, there's nothing left to know.">Self-Knowledge</option>
+              <option title="Blood runs thicker than water.">Family</option>
+              <option title="I must earn glory in battle, for myself and my clan.">Glory</option>
+            </optgroup>
+          </select>
+
+          <h4>Good/Evil</h4>
+          <select class="ideals" multiple="multiple" data-placeholder="Select">
+            <optgroup label="Good">
+              <option title="When I perform, I make the world better than it was.">Beauty</option>
+              <option title="What is beautiful points us beyond itself toward what is true.">Beauty</option>
+              <option title="I always try to help those in need, no matter what the personal cost.">Charity</option>
+              <option title="I distribute money I acquire to the people who really need it.">Charity</option>
+              <option title="I steal from the wealthy so that I can help people in need.">Charity</option>
+              <option title="Material goods come and go. Bonds of friendship last forever.">Friendship</option>
+              <option title="My talents were given to me so that I could use them to benefit the world.">Generosity</option>
+              <option title="My gifts are meant to be shared with all, not used for my own benefit.">Greater Good (Moral)</option>
+              <option title="It is each person's responsibility to make the most happiness for the whole tribe.">Greater Good (Family/Community)</option>
+              <option title="Our lot is to lay down our lives in defense of others.">Greater Good (Self-Sacrifice)</option>
+              <option title="There's a spark of good in everyone.">Redemption</option>
+              <option title="People deserve to be treated with dignity and respect.">Respect (Moral)</option>
+              <option title="The thing that keeps a ship together is mutual respect between captain and crew.">Respect (Family/Community)</option>
+              <option title="Respect is due to me because of my position, but all people regardless of station deserve to be treated with dignity.">Respect (Authority)</option>
+              <option title="It is my duty to protect and care for the people beneath me.">Noble Obligation</option>
+            </optgroup>
+            <optgroup label="Evil" multiple="multiple" data-placeholder="Select">
+              <option title="I will do whatever it takes to become wealthy.">Greed</option>
+              <option title="I'm only in it for the money and/or fame.">Greed</option>
+              <option title="If I become strong, I can take what I want--what I deserve.">Might (Self-Worth)</option>
+              <option title="The strongest are meant to rule.">Might (Authority)</option>
+              <option title="I'm a predator, and the other ships on the sea are my prey.">Master</option>
+              <option title="In life as in war, the stronger force wins.">Might</option>
+              <option title="Solitude and contemplation are paths toward mystical or magical power.">Power</option>
+              <option title="If I can attain more power, no one will tell me what to do.">Power (Self-Worth)</option>
+              <option title="Knowledge is the path to power and domination.">Power (Knowledge)</option>
+              <option title="The rich need to be shown what life and death are like in the gutters.">Retribution</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="container">
+          <h3>FLAWS</h3>
+          <h4>Personality</h4>
+          <select class="flaws" multiple="multiple" data-placeholder="Select">
+            <optgroup label="Thinking">
+              <option title="I obsess over something to my own detriment.">Obsessive</option>
+              <option title="I forgo simple answers for complicated solutions.">Overthinker</option>
+              <option title="I expect perfection from others and myself.">Perfectionist</option>
+              <option title="I feel like the world is out to get me.">Paranoid</option>
+              <option title="I question everything I was told.">Skeptical</option>
+              <option title="I don't like to change my mind or methods.">Stubborn</option>
+            </optgroup>
+            <optgroup label="Self Image">
+              <option title="I believe I know better than everyone else.">Arrogant</option>
+              <option title="I am the embodiment of perfection! Worship me!">Narcissistic</option>
+              <option title="I am certain everything will go my way.">Overconfident</option>
+              <option title="I value my status and fame very highly.">Vain</option>
+            </optgroup>
+            <optgroup label="Beliefs">
+              <option title="I have an irrational fear of the supernatural or the unknown.">Superstitious</option>
+              <option title="I view morals, goals and relationships as meaningless.">Nihilistic</option>
+              <option title="I tend to see the worst in something/someone.">Pessimistic</option>
+            </optgroup>
+          </select>
+
+          <h4>Ethics</h4>
+          <select class="flaws" multiple="multiple" data-placeholder="Select">
+            <option title="I think no cost is too great if it gets results.">Immoral</option>
+            <option title="I'll let someone take the blame for my actions.">Irresponsible</option>
+            <option title="I'll say anything to avoid work.">Lazy</option>
+            <option title="I trick people into doing what I want.">Manipulative</option>
+            <option title="I refuse to cause harm to others unless forced.">Pacifist</option>
+            <option title="I won't do anything that doesn't benefit me.">Self-centered</option>
+            <option title="I believe violence solves everything.">Violent</option>
+          </select>
+
+          <h4>Quirks</h4>
+          <select class="flaws" multiple="multiple" data-placeholder="Select">
+            <option title="I have a terrible poker face.">Bad Liar</option>
+            <option title="I am terrible at keeping secrets.">Blabbermouth</option>
+            <option title="I tend to drop things.">Clumsy</option>
+            <option title="I run away at the first sign of trouble.">Coward</option>
+            <option title="I depend on someone/something to get by in life.">Dependent</option>
+            <option title="I get frightened very easily.">Fearful</option>
+            <option title="I forget things very easily.">Forgetful</option>
+            <option title="I am not very good at the task I was assigned.">Incompetent</option>
+            <option title="I cannot stop myself from stealing things.">Kleptomaniac</option>
+            <option title="I am bad at organizing.">Messy</option>
+            <option title="I am terrible at reading the room or catching a joke.">Oblivious</option>
+            <option title="I am still haunted by my trauma.">Shellshocked</option>
+            <option title="I get angry very easily.">Short-Tempered</option>
+            <option title="I have not known hardship all my life.">Spoiled</option>
+            <option title="I can't let go of slights against me.">Vengeful</option>
+          </select>
+
+          <h4>Social</h4>
+          <select class="flaws" multiple="multiple" data-placeholder="Select">
+            <optgroup label="Organizational">
+              <option title="I am too quick to trust authority.">Gullible</option>
+              <option title="I always challenge social norms/status quo.">Rebellious</option>
+              <option title="I don't like being ordered around.">Unruly</option>
+            </optgroup>
+            <optgroup label="Interpersonal">
+              <option title="I am not very good at socialising.">Awkward</option>
+              <option title="I suck-up to anyone with power.">Bootlicker</option>
+              <option title="I have a hard time trusting people.">Distrustful</option>
+              <option title="I trust people very easily, even if I just met them.">Naive</option>
+              <option title="I lie profusely to other people.">Pathological Liar</option>
+              <option title="I have biased preconceptions of others.">Prejudicial</option>
+              <option title="I fall for pretty faces very easily.">Simp</option>
+              <option title="I say things that anger people often.">Uncouth</option>
+            </optgroup>
+          </select>
+
+          <h4>Phobias</h4>
+          <select class="flaws" multiple="multiple" data-placeholder="Select">
+            <optgroup label="A">
+              <option title="Fear of darkness">Achluophobia</option>
+              <option title="Fear of heights">Acrophobia</option>
+              <option title="Fear of flying">Aerophobia</option>
+              <option title="Fear of crowds/open spaces">Agoraphobia</option>
+              <option title="Fear of needles/pointed objects">Aichmophobia</option>
+              <option title="Fear of pain">Algophobia</option>
+              <option title="Fear of men">Androphobia</option>
+              <option title="Fear of angina or choking">Anginophobia</option>
+              <option title="Fear of flowers">Anthrophobia</option>
+              <option title="Fear of people">Anthropophobia</option>
+              <option title="Fear of being touched">Aphenphosmphobia</option>
+              <option title="Fear of spiders">Arachnophobia</option>
+              <option title="Fear of numbers">Arithmophobia</option>
+              <option title="Fear of lightning/thunder">Astraphobia</option>
+              <option title="Fear of disorder/untidiness">Ataxophobia</option>
+              <option title="Fear of imperfection">Atelophobia</option>
+              <option title="Fear of failure">Atichyphobia</option>
+              <option title="Fear of person-like figure">Automatonophobia</option>
+              <option title="Fear of being">Autophobia</option>
+            </optgroup>
+            <optgroup label="B">
+              <option title="Fear of gravity">Barophobia</option>
+              <option title="Fear of stairs/steep slopes">Bathmophobia</option>
+              <option title="Fear of amphibians">Batrachophobia</option>
+              <option title="Fear of pins & needles">Belonaphobia</option>
+              <option title="Fear of books">Bibliophobia</option>
+              <option title="Fear of plants">Botanophobia</option>
+            </optgroup>
+            <optgroup label="C">
+              <option title="Fear of ugliness">Cacophobia</option>
+              <option title="Fear of being ridiculed">Catagelophobia</option>
+              <option title="Fear of mirrors">Catoptrophobia</option>
+              <option title="Fear of snow">Chionophobia</option>
+              <option title="Fear of colours">Chromophobia</option>
+              <option title="Fear of clocks">Chronomentrophobia</option>
+              <option title="Fear of time">Chronophobia</option>
+              <option title="Fear of confined spaces">Claustrophobia</option>
+              <option title="Fear of clowns">Coulrophobia</option>
+              <option title="Fear of computers">Cyberphobia</option>
+              <option title="Fear of dogs">Cynophobia</option>
+            </optgroup>
+            <optgroup label="D">
+              <option title="Fear of trees">Dendrophobia</option>
+              <option title="Fear of dentists">Dentophobia</option>
+              <option title="Fear of houses">Domatophobia</option>
+              <option title="Fear of accidents">Dystychiphobia</option>
+            </optgroup>
+            <optgroup label="E">
+              <option title="Fear of the home">Ecophobia</option>
+              <option title="Fear of cats">Elurophobia</option>
+              <option title="Fear of insects">Entomophobia</option>
+              <option title="Fear of teenagers">Ephebiphobia</option>
+              <option title="Fear of horses">Equinophobia</option>
+            </optgroup>
+            <optgroup label="G">
+              <option title="Fear of marriage">Gamophobia</option>
+              <option title="Fear of knees">Genuphobia</option>
+              <option title="Fear of germs/bacteria">Germophobia</option>
+              <option title="Fear of speaking in public">Glossophobia</option>
+              <option title="Fear of women">Gynophobia</option>
+            </optgroup>
+            <optgroup label="H">
+              <option title="Fear of touch">Haphephobia</option>
+              <option title="Fear of sun">Heliophobia</option>
+              <option title="Fear of blood">Hemophobia</option>
+              <option title="Fear of reptiles">Herpetophobia</option>
+              <option title="Fear of water">Hydrophobia</option>
+              <option title="Fear of illness">Hypochondria</option>
+            </optgroup>
+            <optgroup label="I">
+              <option title="Fear of doctors">Iatrophobia</option>
+              <option title="Fear of insects">Insectophobia</option>
+            </optgroup>
+            <optgroup label="J">
+
+            </optgroup>
+          </select>
+        </div>
+      </div>
+    </div>-->
+
+    <!--div class="row page" id="page3">
+      <div class="column">
+        <div class="container">
+          <h3>Additional Skills/Proficiencies</h3>
+          <div class="container" id="lang">
+            <span><label for="language">Language</label><textarea name="language" rows="3"></textarea></span>
+          </div>
+          <div class="container" id="sp_skill">
+            <span><label for="add">Special Skills</label><textarea name="add" rows="3"></textarea></span>
+          </div>
+        </div>
+      </div>
+
+    </div>-->
 
     <script src="js/function.js" charset="utf-8"></script>
 
     <div class="footer">
 
     </div>
+
   </body>
 </html>
