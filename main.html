@@ -59,6 +59,10 @@
                 <label for="gender">GENDER</label>
               </div>
               <div class="cell">
+                <input type="text" id="pronoun" maxlength="30"/>
+                <label for="gender">PRONOUNS</label>
+              </div>
+              <div class="cell">
                 <input type="text" id="age">
                 <label for="age">AGE</label>
               </div>
@@ -92,7 +96,7 @@
           </div>
           <div class="column container" id="description">
             <h3>BACKGROUND/HISTORY</h3>
-            <textarea id="hist" rows="8"></textarea>
+            <textarea id="hist" rows="11" max-rows="11"></textarea>
           </div>
         </div>
 
@@ -114,83 +118,90 @@
     </div>
     <div class="column page" id="page2">
       <div class="row">
+        <!--COL1-->
         <div class="column">
           <div class="cell"><canvas id="myChart" ></canvas></div>
+          <!--LVL-->
           <div class="cell" style="margin: 8.5px 0">
             <div class="hex">
               <div class="hex inner">
-                <input type="number" id="level" value="0" min="0"/>
+                <input type="number" id="level" value="1"/>
               </div>
             </div>
             <div class="ribbon" id="level_label"><span>LEVEL</span></div>
           </div>
         </div>
+        <!--COL2-->
         <div class="column">
           <div class="row">
             <div class="column">
-              <div class="cell">
-                <input type="number" value="8" class="statNum" id="str"/>
-                <div class="ribbon" id="strength"><span>STRENGTH</span></div>
-              </div>
+              <!--STR-->
               <div class="column">
-                <div class="cell skill">
-                  <input type="checkbox" class="myCheck">
-                  <div class="modCon mod">-1</div>
-                  <div>Saving Throw</div>
+                <div class="cell">
+                  <input type="number" value="8" class="statNum" id="str"/>
+                  <div class="ribbon" id="strength"><span>STRENGTH</span></div>
                 </div>
-                <div class="cell skill">
-                  <input type="checkbox" class="myCheck">
-                  <div class="modStr mod">-1</div>
-                  <div>Athletics</div>
-                </div>
-              </div>
-
-            </div>
-            <div class="cell" style="margin-top: 8.5px">
-              <div class="hex">
-                <div class="hex inner">
-                  <input type="number" id="profMod" value="2" min="2">
+                <div class="column">
+                  <div class="cell skill">
+                    <input type="checkbox" class="myCheck">
+                    <div class="modStr mod">-1</div>
+                    <div>Saving Throw</div>
+                  </div>
+                  <div class="cell skill">
+                    <input type="checkbox" class="myCheck">
+                    <div class="modStr mod">-1</div>
+                    <div>Athletics</div>
+                  </div>
                 </div>
               </div>
-              <div class="ribbon" id="prof_label"><span>PROFICIENCY</span></div>
-            </div>
-          </div>
-          <div class="row" style="padding-top: 5px">
-            <div class="column">
-              <div class="cell">
-                <input type="number" value="8" class="statNum" id="dex"/>
-                <div class="ribbon" id="dexterity"><span>DEXTERITY</span></div>
-              </div>
-              <div class="column">
-                <div class="cell skill">
-                  <input type="checkbox" class="myCheck">
-                  <div class="modCon mod">-1</div>
-                  <div>Saving Throw</div>
+              <!--DEX-->
+              <div class="column" style="padding-top: 5px">
+                <div class="cell">
+                  <input type="number" value="8" class="statNum" id="dex"/>
+                  <div class="ribbon" id="dexterity"><span>DEXTERITY</span></div>
                 </div>
-                <div class="cell skill">
-                  <input type="checkbox" class="myCheck">
-                  <div class="modDex mod">-1</div>
-                  <div>Acrobatics</div>
-                </div>
-                <div class="cell skill">
-                  <input type="checkbox" class="myCheck">
-                  <div class="modDex mod">-1</div>
-                  <div>Sleight of Hand</div>
-                </div>
-                <div class="cell skill">
-                  <input type="checkbox" class="myCheck">
-                  <div class="modDex mod">-1</div>
-                  <div>Stealth</div>
+                <div class="column">
+                  <div class="cell skill">
+                    <input type="checkbox" class="myCheck">
+                    <div class="modDex mod">-1</div>
+                    <div>Saving Throw</div>
+                  </div>
+                  <div class="cell skill">
+                    <input type="checkbox" class="myCheck">
+                    <div class="modDex mod">-1</div>
+                    <div>Acrobatics</div>
+                  </div>
+                  <div class="cell skill">
+                    <input type="checkbox" class="myCheck">
+                    <div class="modDex mod">-1</div>
+                    <div>Sleight of Hand</div>
+                  </div>
+                  <div class="cell skill">
+                    <input type="checkbox" class="myCheck">
+                    <div class="modDex mod">-1</div>
+                    <div>Stealth</div>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="column">
-              <div class="cell">
+              <!--PROFICIENCY-->
+              <div class="cell" style="margin-top: 8.5px">
+                <div class="hex">
+                  <div class="hex inner">
+                    <input type="number" id="profMod" value="2" disabled/>
+                  </div>
+                </div>
+                <div class="ribbon" id="prof_label"><span>PROFICIENCY</span></div>
+              </div>
+              <!--ARMOUR-->
+              <div class="cell" style="margin-top: 10px">
                 <div class="shield">
                   <input type="number" value="0" min="0" id="armour"/>
                 </div>
                 <div class="ribbon" id="armour_label"><span>ARMOUR CLASS</span></div>
               </div>
+              <!--INITIATIVE-->
               <div class="cell">
                 <input type="number" value="0" min="0" id="initiative"/>
                 <div class="ribbon" id="initiative_label"><span>INITIATIVE</span></div>
@@ -198,56 +209,62 @@
             </div>
           </div>
           <div class="row" style="padding-top: 5px">
+            <!--CON-->
             <div class="column">
+              <div class="cell">
+                <input type="number" value="8" class="statNum" id="con"/>
+                <div class="ribbon" id="constitution"><span>CONSTITUTION</span></div>
+              </div>
               <div class="column">
-                <div class="cell">
-                  <input type="number" value="8" class="statNum" id="con"/>
-                  <div class="ribbon" id="constitution"><span>CONSTITUTION</span></div>
-                </div>
-                <div class="column">
-                  <div class="cell skill">
-                    <input type="checkbox" class="myCheck">
-                    <div class="modCon mod">-1</div>
-                    <div>Saving Throw</div>
-                  </div>
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modCon mod">-1</div>
+                  <div>Saving Throw</div>
                 </div>
               </div>
-              <div class="column" style="padding-top: 5px">
-                <div class="cell">
-                  <input type="number" value="8" class="statNum" id="int"/>
-                  <div class="ribbon" id="intelligence"><span>INTELLIGENCE</span></div>
+            </div>
+            <!--INT-->
+            <div class="column">
+              <div class="cell">
+                <input type="number" value="8" class="statNum" id="int"/>
+                <div class="ribbon" id="intelligence"><span>INTELLIGENCE</span></div>
+              </div>
+              <div class="column">
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modInt mod">-1</div>
+                  <div>Saving Throw</div>
                 </div>
-                <div class="column">
-                  <div class="cell skill">
-                    <input type="checkbox" class="myCheck">
-                    <div class="modInt mod">-1</div>
-                    <div>Arcana</div>
-                  </div>
-                  <div class="cell skill">
-                    <input type="checkbox" class="myCheck">
-                    <div class="modInt mod">-1</div>
-                    <div>History</div>
-                  </div>
-                  <div class="cell skill">
-                    <input type="checkbox" class="myCheck">
-                    <div class="modInt mod">-1</div>
-                    <div>Investigation</div>
-                  </div>
-                  <div class="cell skill">
-                    <input type="checkbox" class="myCheck">
-                    <div class="modInt mod">-1</div>
-                    <div>Nature</div>
-                  </div>
-                  <div class="cell skill">
-                    <input type="checkbox" class="myCheck">
-                    <div class="modInt mod">-1</div>
-                    <div>Religion</div>
-                  </div>
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modInt mod">-1</div>
+                  <div>Arcana</div>
+                </div>
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modInt mod">-1</div>
+                  <div>History</div>
+                </div>
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modInt mod">-1</div>
+                  <div>Investigation</div>
+                </div>
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modInt mod">-1</div>
+                  <div>Nature</div>
+                </div>
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck">
+                  <div class="modInt mod">-1</div>
+                  <div>Religion</div>
                 </div>
               </div>
             </div>
           </div>
           <div class="row" style="padding-top: 5px">
+            <!--WIS-->
             <div class="column">
               <div class="cell">
                 <input type="number" value="8" class="statNum" id="wis"/>
@@ -257,25 +274,30 @@
                 <div class="cell skill">
                   <input type="checkbox" class="myCheck">
                   <div class="modWis mod">-1</div>
+                  <div>Saving Throw</div>
+                </div>
+                <div class="cell skill">
+                  <input type="checkbox" class="myCheck wisCheck" id="c_ani">
+                  <div class="modWis mod" id="v_ani">-1</div>
                   <div>Animal Handling</div>
                 </div>
                 <div class="cell skill">
-                  <input type="checkbox" class="myCheck">
+                  <input type="checkbox" class="myCheck wisCheck" id="c-insight">
                   <div class="modWis mod">-1</div>
                   <div>Insight</div>
                 </div>
                 <div class="cell skill">
-                  <input type="checkbox" class="myCheck">
-                  <div class="modWis mod">-1</div>
+                  <input type="checkbox" class="myCheck wisCheck" id="c-medicine">
+                  <div class="modWis mod" id="v_medicine">-1</div>
                   <div>Medicine</div>
                 </div><div class="cell skill">
-                  <input type="checkbox" class="myCheck">
-                  <div class="modWis mod">-1</div>
+                  <input type="checkbox" class="myCheck wisCheck" id="c-percept">
+                  <div class="modWis mod" id="v_percept">-1</div>
                   <div>Perception</div>
                 </div>
                 <div class="cell skill">
-                  <input type="checkbox" class="myCheck">
-                  <div class="modWis mod">-1</div>
+                  <input type="checkbox" class="myCheck wisCheck" id="c-survival">
+                  <div class="modWis mod" id="v_surv">-1</div>
                   <div>Survival</div>
                 </div>
               </div>
@@ -283,13 +305,13 @@
             <div class="cell" style="margin-top: 8.5px">
               <div class="hex">
                 <div class="hex inner">
-                  <input type="number" id="p_percept" value="0" min="0"/>
+                  <input type="number" id="p_percept" value="10" min="0"/>
                 </div>
               </div>
-              <div class="ribbon" id="p_percept_label"><span>PASSIVE PERCEPTION</span></div>
+              <div class="ribbon" id="p_percept_label"><span>PASSIVE WISDOM</span></div>
             </div>
           </div>
-          <div class="row" style="padding-top: 5px">
+          <div class="row">
             <div class="column">
               <div class="cell">
                 <input type="number" value="8" class="statNum" id="cha"/>

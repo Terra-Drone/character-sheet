@@ -21,12 +21,6 @@ var bonds={
 
 //onload
 $(document).ready(function() {
-  //calc stats-get all elements
-    $(".statNum").each(function(){
-      $(this).change(function(){
-        calcpoints();
-      });
-    });
   //Select2 setting
   $('select').select2({
     dropdownAutoWidth: false,
@@ -38,7 +32,6 @@ $(document).ready(function() {
     multiple: true,
     maximumSelectionLength: 3,
     allowClear: true,
-
   });
 
   //repeat bond options for bond selects
@@ -50,10 +43,28 @@ $(document).ready(function() {
 
 });
 
+//LEVEL & PROFICIENCY SCORE
+$("#level").change(function() {
+  var level = parseInt(this.value);
+
+  console.log("level="+ level);
+  if (level > 20 || level < 1) {
+    alert("Limit exceeded.");
+    level = 1;
+    $("#level").val(level);
+    console.log("level="+ level);
+  }
+  if (level < 5) { $("#profMod").val(2); }
+  else if (level >= 5 && level < 9) { $("#profMod").val(3);}
+  else if (level >= 9 && level < 13) { $("#profMod").val(4);}
+  else if (level >= 13 && level < 17) { $("#profMod").val(5);}
+  else { $("#profMod").val(6); }
+})
+
+
 //stats
 $("#str").change(function() {
   var val = parseInt(this.value);
-
   console.log("STR="+val);
   //LIMIT
   if (val > 20 || val < 3) {
@@ -112,7 +123,6 @@ $("#con").change(function() {
 });
 $("#int").change(function() {
   var val = parseInt(this.value);
-
   console.log("INT="+val);
   //LIMIT
   if (val > 20 || val < 3) {
@@ -132,8 +142,8 @@ $("#int").change(function() {
 });
 $("#wis").change(function() {
   var val = parseInt(this.value);
-
   console.log("WIS="+val);
+  console.log("Passive Percept="+passpercept);
   //LIMIT
   if (val > 20 || val < 3) {
     alert("Limit exceeded.");
@@ -145,14 +155,12 @@ $("#wis").change(function() {
   var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0);
   if (mod > 0){ $('.modWis').html("+"+mod); }
   else { $('.modWis').html(mod); }
-
   //update chart
   myChart.config.data.datasets[0].data[4] = val;
   myChart.update();
 });
 $("#cha").change(function() {
   var val = parseInt(this.value);
-
   console.log("CHA="+val);
   //LIMIT
   if (val > 20 || val < 3) {
@@ -165,11 +173,11 @@ $("#cha").change(function() {
   var mod = parseFloat(Math.floor(((val-10)/2)*100)/100).toFixed(0);
   if (mod > 0){ $('.modCha').html("+"+mod); }
   else { $('.modCha').html(mod); }
-
   //update chart
   myChart.config.data.datasets[0].data[5] = val;
   myChart.update();
 });
+
 //RADAR Chart
 var ctx = $("#myChart")[0].getContext('2d');
 var myChart = new Chart(ctx, {
